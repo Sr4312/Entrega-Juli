@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SSEJA — El lugar donde tu mascota vive para siempre</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Ovo&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#0F0F0F;--bg2:#1a1a1a;--bgc:#3C3F46;
+  --ac:#324FA2;--ac2:#2F4A92;
+  --tx:#FFFFFF;--txm:#D9D9D9;--txd:rgba(255,255,255,.35);
+  --r:12px;--tr:.3s ease;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Ovo',Georgia,serif;font-size:16px;line-height:1.7;overflow-x:hidden}
+h1,h2,h3,h4,.nav-logo,.btn,.mono{font-family:'Montserrat',sans-serif}
+
+/* UTILS */
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+.label{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ac);display:block;margin-bottom:10px}
+.stitle{font-size:clamp(24px,4vw,42px);font-weight:800;line-height:1.2;margin-bottom:14px}
+.ssub{font-size:16px;color:var(--txm);max-width:580px;margin-bottom:40px}
+.center{text-align:center}
+.center .ssub{margin-left:auto;margin-right:auto}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:8px;font-size:14px;font-weight:700;letter-spacing:.04em;cursor:pointer;border:none;text-decoration:none;transition:transform var(--tr),box-shadow var(--tr),background var(--tr)}
+.btn-p{background:var(--ac);color:#fff}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(50,79,162,.5);background:#3d5fbe}
+.btn-g{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.35)}
+.btn-g:hover{transform:translateY(-2px);border-color:var(--ac);box-shadow:0 8px 28px rgba(50,79,162,.3)}
+.btn-sm{padding:9px 18px;font-size:12px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:0 24px;height:64px;display:flex;align-items:center;background:rgba(15,15,15,.92);backdrop-filter:blur(14px);border-bottom:1px solid rgba(50,79,162,.15);transition:background var(--tr)}
+.nav-in{max-width:1140px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:20px;font-weight:800;color:var(--ac);text-decoration:none;letter-spacing:.06em}
+.nav-links{display:flex;gap:26px;list-style:none}
+.nav-links a{color:var(--txm);text-decoration:none;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;letter-spacing:.04em;transition:color var(--tr)}
+.nav-links a:hover{color:#fff}
+.hbg{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hbg span{display:block;width:22px;height:2px;background:#fff;border-radius:2px}
+.mob{display:none;position:fixed;top:64px;left:0;right:0;background:var(--bg2);border-bottom:1px solid rgba(50,79,162,.2);padding:18px 24px;z-index:199;flex-direction:column;gap:12px}
+.mob.open{display:flex}
+.mob a{color:var(--txm);text-decoration:none;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:600;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+.hglow{position:absolute;width:900px;height:900px;background:radial-gradient(circle,rgba(50,79,162,.14) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.hpaw{position:absolute;opacity:.025;font-size:520px;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;user-select:none}
+.hc{position:relative;z-index:1;max-width:840px}
+.hbadge{display:inline-block;padding:6px 16px;border:1px solid rgba(50,79,162,.5);border-radius:100px;font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--ac);text-transform:uppercase;margin-bottom:28px}
+.htitle{font-size:clamp(32px,6vw,68px);font-weight:800;line-height:1.08;margin-bottom:20px;background:linear-gradient(135deg,#fff 55%,#8caae8 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hsub{font-size:clamp(15px,2vw,19px);color:var(--txm);max-width:540px;margin:0 auto 36px}
+.hbtns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.hscroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,.22);font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.12em;animation:bounce 2.5s ease-in-out infinite}
+.hscroll::after{content:'';display:block;width:1px;height:32px;background:linear-gradient(to bottom,rgba(50,79,162,.5),transparent)}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(7px)}}
+
+/* AUDIO PILL */
+.apill{position:fixed;bottom:24px;right:24px;z-index:300;display:flex;align-items:center;gap:10px;background:rgba(26,26,26,.96);border:1px solid rgba(50,79,162,.3);border-radius:100px;padding:10px 18px;backdrop-filter:blur(10px);cursor:pointer;transition:all var(--tr)}
+.apill:hover{border-color:var(--ac);box-shadow:0 4px 20px rgba(50,79,162,.4)}
+.aicon{width:30px;height:30px;border-radius:50%;background:var(--ac);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.atxt{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--txm);line-height:1.3}
+.atxt small{display:block;font-size:10px;color:var(--txd);font-weight:400}
+.abars{display:flex;align-items:flex-end;gap:2px;height:14px}
+.abars span{width:3px;background:var(--ac);border-radius:2px}
+.abars.playing span:nth-child(1){animation:b1 .6s ease-in-out infinite}
+.abars.playing span:nth-child(2){animation:b2 .6s ease-in-out infinite .1s}
+.abars.playing span:nth-child(3){animation:b3 .6s ease-in-out infinite .2s}
+.abars.playing span:nth-child(4){animation:b2 .6s ease-in-out infinite .15s}
+@keyframes b1{0%,100%{height:3px}50%{height:12px}}
+@keyframes b2{0%,100%{height:7px}50%{height:3px}}
+@keyframes b3{0%,100%{height:11px}50%{height:5px}}
+
+/* CHAPTER DIVIDER */
+.chapter{padding:24px 0 8px;text-align:center}
+.chnum{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:800;letter-spacing:.25em;color:var(--ac);text-transform:uppercase;display:inline-flex;align-items:center;gap:10px}
+.chnum::before,.chnum::after{content:'';display:inline-block;width:36px;height:1px;background:rgba(50,79,162,.3)}
+
+/* GRID HELPERS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+/* STORY CARD */
+.scard{background:var(--bgc);border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.06);margin-bottom:20px}
+.smedia{display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
+.smedia.rev{direction:rtl}
+.smedia.rev>*{direction:ltr}
+.simg{width:100%;height:100%;min-height:320px;object-fit:cover;display:block}
+.stxt{padding:40px 36px;display:flex;flex-direction:column;justify-content:center}
+.sch{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--ac);text-transform:uppercase;margin-bottom:8px}
+.sh3{font-size:clamp(18px,2.5vw,26px);font-weight:800;line-height:1.25;margin-bottom:12px}
+.sbody{font-size:14px;color:var(--txm);line-height:1.7}
+.sbody strong{color:#fff}
+
+/* CARRUSEL */
+.carousel{position:relative;overflow:hidden;border-radius:16px;border:1px solid rgba(50,79,162,.2)}
+.carousel-track{display:flex;transition:transform .4s ease}
+.carousel-track img{width:100%;flex-shrink:0;display:block;aspect-ratio:4/5;object-fit:cover}
+.carousel-dots{display:flex;gap:6px;justify-content:center;margin-top:10px}
+.cdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:background var(--tr)}
+.cdot.active{background:var(--ac)}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background var(--tr);z-index:2}
+.carousel-btn:hover{background:var(--ac)}
+.carousel-btn.prev{left:10px}
+.carousel-btn.next{right:10px}
+
+/* VIDEO WRAP */
+.vwrap{border-radius:14px;overflow:hidden;background:#000;border:1px solid rgba(50,79,162,.2)}
+.vwrap video{width:100%;display:block}
+.vlabel{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--txd);letter-spacing:.08em;text-transform:uppercase;margin-top:8px;text-align:center}
+
+/* IG MOCKUP */
+.ig-post{background:var(--bgc);border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07);transition:transform var(--tr),border-color var(--tr)}
+.ig-post:hover{transform:translateY(-4px);border-color:rgba(50,79,162,.4)}
+.ig-post img,.ig-post video{width:100%;display:block}
+.ig-post img{aspect-ratio:1;object-fit:cover}
+.ig-post video{aspect-ratio:9/16;max-height:300px;object-fit:cover}
+.ig-meta{padding:10px 12px;display:flex;align-items:center;gap:8px}
+.ig-av{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#6a4fcf);display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;color:#fff;flex-shrink:0}
+.ig-handle{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:#fff}
+.ig-sub{font-size:10px;color:var(--txd);margin-top:1px}
+.ibadge{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:100px;margin-left:auto;flex-shrink:0}
+.borg{background:rgba(50,79,162,.15);color:var(--ac);border:1px solid rgba(50,79,162,.3)}
+.binorg{background:rgba(130,80,200,.15);color:#a875f0;border:1px solid rgba(130,80,200,.3)}
+
+/* TIKTOK PHONES */
+.tt-phone{background:var(--bg2);border-radius:28px;overflow:hidden;border:1.5px solid rgba(255,255,255,.08);padding:7px;transition:transform var(--tr)}
+.tt-phone:hover{transform:translateY(-6px)}
+.tt-screen{border-radius:22px;overflow:hidden;background:#000;position:relative}
+.tt-screen video{width:100%;display:block;aspect-ratio:9/16;object-fit:cover}
+.tt-tag{position:absolute;bottom:10px;left:10px;right:10px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:rgba(255,255,255,.8);background:rgba(0,0,0,.5);padding:4px 10px;border-radius:100px;display:inline-block}
+
+/* VALUE CARD */
+.vcard{background:var(--bgc);border-radius:var(--r);padding:20px;border:1px solid rgba(50,79,162,.12);display:flex;align-items:flex-start;gap:14px;transition:border-color var(--tr),transform var(--tr)}
+.vcard:hover{border-color:rgba(50,79,162,.4);transform:translateX(4px)}
+.vicon{width:38px;height:38px;border-radius:9px;background:rgba(50,79,162,.15);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.vcard h4{font-size:13px;font-weight:700;margin-bottom:3px}
+.vcard p{font-size:13px;color:var(--txm);line-height:1.5}
+
+/* STEPS */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative}
+.steps::before{content:'';position:absolute;top:34px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(to right,transparent,var(--ac),transparent);opacity:.25}
+.step{background:var(--bg2);border-radius:var(--r);padding:28px 20px;border:1px solid rgba(255,255,255,.05);text-align:center;transition:border-color var(--tr),transform var(--tr)}
+.step:hover{border-color:rgba(50,79,162,.4);transform:translateY(-4px)}
+.snum{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:800;letter-spacing:.15em;color:var(--ac);background:rgba(50,79,162,.1);border:1px solid rgba(50,79,162,.3);border-radius:100px;padding:3px 12px;display:inline-block;margin-bottom:14px}
+.step h3{font-size:14px;font-weight:700;margin-bottom:6px}
+.step p{font-size:13px;color:var(--txm);line-height:1.5}
+
+/* PLANS */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+.plan{background:var(--bgc);border-radius:16px;padding:32px 24px;border:1px solid rgba(255,255,255,.06);position:relative;transition:transform var(--tr),border-color var(--tr),box-shadow var(--tr)}
+.plan:hover{transform:translateY(-6px);border-color:rgba(50,79,162,.3)}
+.plan.ft{border:2px solid var(--ac);background:#1e2540;transform:scale(1.02)}
+.plan.ft:hover{transform:scale(1.02) translateY(-6px);box-shadow:0 20px 60px rgba(50,79,162,.35)}
+.pbadge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--ac);color:#fff;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.08em;padding:3px 14px;border-radius:100px;white-space:nowrap}
+.pname{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--txm);margin-bottom:8px}
+.pprice{font-size:38px;font-weight:800;line-height:1;margin-bottom:4px}
+.pprice span{font-size:14px;font-weight:500;color:var(--txm)}
+.pdesc{font-size:12px;color:var(--txm);margin:6px 0 18px}
+.pdiv{height:1px;background:rgba(255,255,255,.07);margin:16px 0}
+.pfeats{list-style:none;margin-bottom:24px}
+.pfeats li{font-size:12.5px;color:var(--txm);padding:5px 0;display:flex;align-items:flex-start;gap:8px;line-height:1.4}
+.pfeats li::before{content:'✓';color:var(--ac);font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;flex-shrink:0;margin-top:2px}
+.plan .btn{width:100%;justify-content:center}
+
+/* PACKAGING GALLERY */
+.packgal{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.packgal img{width:100%;border-radius:12px;border:1px solid rgba(50,79,162,.15);object-fit:cover;transition:transform var(--tr),border-color var(--tr)}
+.packgal img:hover{transform:scale(1.02);border-color:rgba(50,79,162,.45)}
+.packgal img:first-child{grid-column:1/-1;aspect-ratio:16/8}
+.packgal img:not(:first-child){aspect-ratio:1}
+
+/* PACK FEATURES */
+.pklist{list-style:none;margin-bottom:28px}
+.pklist li{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:13px;color:var(--txm)}
+.pklist li:last-child{border-bottom:none}
+.pkck{width:18px;height:18px;border-radius:50%;background:rgba(50,79,162,.15);border:1px solid rgba(50,79,162,.4);color:var(--ac);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+
+/* CLOSING */
+.closing-quote{max-width:700px;margin:0 auto;padding:36px;background:var(--bg2);border-radius:20px;border:1px solid rgba(50,79,162,.2)}
+.bq{font-size:clamp(18px,2.5vw,26px);font-family:'Ovo',serif;color:#fff;line-height:1.55;font-style:italic;margin-bottom:18px}
+.bq::before{content:'\201C';color:var(--ac)}
+.bq::after{content:'\201D';color:var(--ac)}
+.bqauth{display:flex;align-items:center;justify-content:center;gap:12px}
+.bqav{width:42px;height:42px;border-radius:50%;background:rgba(50,79,162,.2);border:1px solid rgba(50,79,162,.35);display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--ac)}
+.bqinfo strong{display:block;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700}
+.bqinfo span{font-size:12px;color:var(--txd)}
+.stars{color:var(--ac);font-size:14px;letter-spacing:2px;margin-bottom:4px}
+
+/* METRIC CARDS */
+.metric{background:var(--bgc);border-radius:10px;padding:16px;border:1px solid rgba(50,79,162,.12);text-align:center}
+.metric-val{font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800;color:var(--ac)}
+.metric-lbl{font-size:11px;color:var(--txm);margin-top:4px}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid rgba(50,79,162,.15);padding:52px 24px 32px}
+.fgrid{max-width:1140px;margin:0 auto 40px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px}
+.flogo{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:var(--ac);display:block;margin-bottom:10px;text-decoration:none}
+.fslogan{font-size:13px;color:var(--txm);max-width:230px;margin-bottom:18px;font-style:italic}
+.socials{display:flex;gap:8px}
+.soc{width:32px;height:32px;border-radius:8px;background:rgba(50,79,162,.1);border:1px solid rgba(50,79,162,.2);display:flex;align-items:center;justify-content:center;font-size:14px;text-decoration:none;transition:all var(--tr)}
+.soc:hover{background:rgba(50,79,162,.25);border-color:var(--ac);transform:translateY(-2px)}
+.fcol h4{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.fcol ul{list-style:none}
+.fcol li{margin-bottom:8px}
+.fcol a{font-size:13px;color:var(--txm);text-decoration:none;transition:color var(--tr)}
+.fcol a:hover{color:#fff}
+.fbot{max-width:1140px;margin:0 auto;padding-top:20px;border-top:1px solid rgba(255,255,255,.05);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.fbot p,.fbot a{font-size:11px;color:rgba(255,255,255,.22);font-family:'Montserrat',sans-serif;text-decoration:none}
+.fbot a:hover{color:var(--ac)}
+
+/* FADE IN */
+.fade{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.fade.in{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:960px){
+  .nav-links,.nav-cta{display:none}
+  .hbg{display:flex}
+  .g2,.smedia,.g2.pack{grid-template-columns:1fr}
+  .smedia.rev{direction:ltr}
+  .steps{grid-template-columns:repeat(2,1fr)}
+  .steps::before{display:none}
+  .plans{grid-template-columns:1fr;max-width:360px;margin-left:auto;margin-right:auto}
+  .plan.ft{transform:scale(1)}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .steps,.g3,.g4,.packgal{grid-template-columns:1fr}
+  .packgal img:first-child,.packgal img:not(:first-child){grid-column:auto;aspect-ratio:16/9}
+  .fgrid{grid-template-columns:1fr}
+  .hbtns{flex-direction:column;align-items:center}
+  .fbot{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<audio id="jingle" loop>
+  <source src="assets/audio/jingle.mp3" type="audio/mpeg">
+</audio>
+
+<!-- AUDIO PILL -->
+<div class="apill" onclick="toggleAudio()" title="Jingle SSEJA">
+  <div class="aicon" id="aicon">▶</div>
+  <div class="atxt">Jingle SSEJA<small id="asmall">Tocá para escuchar</small></div>
+  <div class="abars" id="abars">
+    <span style="height:3px"></span><span style="height:7px"></span>
+    <span style="height:11px"></span><span style="height:5px"></span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#hero" class="nav-logo">SSEJA</a>
+    <ul class="nav-links">
+      <li><a href="#identidad">Marca</a></li>
+      <li><a href="#atl">Campaña</a></li>
+      <li><a href="#social">Redes</a></li>
+      <li><a href="#pet-wings">Pet Wings</a></li>
+      <li><a href="#precios">Planes</a></li>
+      <li><a href="#packaging">Packaging</a></li>
+    </ul>
+    <a href="https://sseja.vercel.app" class="btn btn-p btn-sm nav-cta" style="margin-left:16px">Crear memorial</a>
+    <button class="hbg" id="hbg"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mob" id="mob">
+  <a href="#identidad">Marca</a><a href="#atl">Campaña</a><a href="#social">Redes</a>
+  <a href="#pet-wings">Pet Wings</a><a href="#precios">Planes</a><a href="#packaging">Packaging</a>
+  <a href="https://sseja.vercel.app" class="btn btn-p" style="justify-content:center;margin-top:4px">Crear memorial</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hglow"></div>
+  <div class="hpaw">🐾</div>
+  <div class="hc">
+    <div class="hbadge">🐾 Primer memorial virtual de mascotas en Argentina</div>
+    <h1 class="htitle">El lugar donde tu mascota vive para siempre.</h1>
+    <p class="hsub">Memoriales digitales con Inteligencia Artificial para honrar a quienes siempre vivirán en tu corazón.</p>
+    <div class="hbtns">
+      <a href="https://sseja.vercel.app" class="btn btn-p">Crear memorial gratis →</a>
+      <a href="#identidad" class="btn btn-g">Conocer el proyecto</a>
+    </div>
+  </div>
+  <div class="hscroll">SCROLL</div>
+</section>
+
+<!-- ═══ IDENTIDAD DE MARCA ═══ -->
+<section id="identidad" style="padding:90px 0;background:var(--bg2)">
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">Identidad de marca</span></div>
+    <div class="g2" style="margin-top:40px">
+      <div class="fade">
+        <img src="assets/images/brandboard.jpg" alt="Brandboard SSEJA" style="width:100%;border-radius:16px;border:1px solid rgba(50,79,162,.2)"/>
+      </div>
+      <div class="fade">
+        <span class="label">Sistema visual</span>
+        <h2 class="stitle">Diseñados para recordar.</h2>
+        <p style="color:var(--txm);font-size:15px;margin-bottom:26px">La identidad de SSEJA se construyó sobre tres pilares: <strong style="color:#fff">recordación, posicionamiento y calidad.</strong> Un nombre abstracto y distintivo, un isotipo de formas entrelazadas que simbolizan la conexión, y una paleta que equilibra la sofisticación del negro con la innovación del azul cobalto.</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="vcard"><div class="vicon">🖤</div><div><h4>Negro #0F0F0F</h4><p>Base principal. Elegancia, sofisticación y solidez premium.</p></div></div>
+          <div class="vcard"><div class="vicon" style="color:var(--ac)">🔷</div><div><h4>Azul Cobalto #324FA2</h4><p>Innovación, confianza y profesionalismo digital.</p></div></div>
+          <div class="vcard"><div class="vicon">📝</div><div><h4>Montserrat + Ovo</h4><p>Tecnología y calidez humana. Funcional y sofisticado.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CAP 1: VALENTINA CONOCE SSEJA ═══ -->
+<section style="padding:80px 0;background:var(--bg)">
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">La historia de Valentina · Capítulo 1</span></div>
+    <p class="center ssub" style="margin:10px auto 40px">Así es como SSEJA llega a la vida de una persona real. Seguí su historia.</p>
+
+    <div class="scard fade">
+      <div class="smedia">
+        <img class="simg" src="assets/images/atl-subte-2.jpg" alt="Publicidad SSEJA subte Plaza de Mayo"/>
+        <div class="stxt">
+          <p class="sch">Primer contacto · Subte Línea A</p>
+          <h3 class="sh3">Valentina va al trabajo un martes a la mañana.</h3>
+          <p class="sbody">Baja al subte en Plaza de Mayo. Entre el ruido y la rutina, algo la detiene: un cartel negro con dos animales iluminados en azul. <strong>"Para siempre en tu corazón. Para siempre en SSEJA."</strong><br><br>No lo entiende del todo. Pero lo recuerda.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="scard fade">
+      <div class="smedia rev">
+        <img class="simg" src="assets/images/atl-exterior.jpg" alt="Billboard SSEJA vía pública noche"/>
+        <div class="stxt">
+          <p class="sch">Semanas después · Vía pública</p>
+          <h3 class="sh3">El nombre la sigue por la ciudad.</h3>
+          <p class="sbody">Esta vez lo ve en grande, en la noche de Buenos Aires. El billboard ilumina la avenida con el mismo perro y el mismo gato. <strong>SSEJA.COM.AR</strong> queda grabado.<br><br>Todavía no lo necesita. Pero ya lo conoce.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ATL COMPLETO ═══ -->
+<section id="atl" style="padding:90px 0;background:var(--bg2)">
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">Plan de medios ATL</span></div>
+    <div class="g2" style="margin-top:40px">
+      <div class="fade">
+        <span class="label">Vía pública · Subterráneos · CABA</span>
+        <h2 class="stitle">Donde los pet parents viven.</h2>
+        <p class="ssub" style="margin-bottom:24px">Carteles 6×3m en Palermo, Recoleta y Belgrano. Paletas en Línea A — Plaza de Mayo, Acoyte y Primera Junta. Pasillos de transbordo con narrativa secuencial.</p>
+        <div class="g2" style="gap:12px;margin-bottom:0">
+          <div class="metric"><div class="metric-val">4</div><div class="metric-lbl">Zonas en CABA</div></div>
+          <div class="metric"><div class="metric-val">6×3m</div><div class="metric-lbl">Gran formato</div></div>
+          <div class="metric"><div class="metric-val">3</div><div class="metric-lbl">Líneas de subte</div></div>
+          <div class="metric"><div class="metric-val">ATL</div><div class="metric-lbl">+ BTL + Digital</div></div>
+        </div>
+      </div>
+      <div class="fade" style="display:grid;grid-template-columns:1fr;gap:12px">
+        <img src="assets/images/atl-exterior.jpg" alt="Billboard exterior SSEJA noche" style="width:100%;border-radius:14px;border:1px solid rgba(50,79,162,.15)"/>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <img src="assets/images/atl-subte-1.jpg" alt="Subte Plaza de Mayo versión 1" style="width:100%;border-radius:12px;border:1px solid rgba(50,79,162,.15)"/>
+          <img src="assets/images/atl-subte-2.jpg" alt="Subte Plaza de Mayo versión 2" style="width:100%;border-radius:12px;border:1px solid rgba(50,79,162,.15)"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CAP 2: EL MOMENTO DIFÍCIL + IG ADS ═══ -->
+<section style="padding:80px 0;background:var(--bg)">
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">La historia de Valentina · Capítulo 2</span></div>
+
+    <div class="scard fade" style="margin-top:40px">
+      <div class="smedia">
+        <img class="simg" src="assets/images/ig-carrusel-5.jpg" alt="Porque tu mascota merece más que un post"/>
+        <div class="stxt">
+          <p class="sch">Tres meses después · Instagram</p>
+          <h3 class="sh3">Simón se va. Y Valentina no sabe qué hacer con tanto recuerdo.</h3>
+          <p class="sbody">Su golden retriever de 12 años. El que la esperaba siempre.<br><br>Scrolleando Instagram, entre stories y reels, aparece un aviso. <strong>"Dale el lugar que se merece."</strong><br><br>Valentina recuerda el subte. Entra a SSEJA.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ REDES SOCIALES ═══ -->
+<section id="social" style="padding:90px 0;background:var(--bg2)">
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">Plan de redes sociales · Instagram</span></div>
+    <div class="g2" style="margin-top:40px;align-items:flex-start">
+      <div class="fade">
+        <span class="label">Post 1 · Carrusel orgánico · 5 slides</span>
+        <h2 class="stitle">Contenido que conecta emocionalmente.</h2>
+        <p class="ssub" style="margin-bottom:20px">"Porque tu mascota merece más que un post que nadie recuerda." Copy de concepto que ancla el problema y ofrece SSEJA como solución.</p>
+
+        <!-- CARRUSEL REAL -->
+        <div class="carousel" id="car1">
+          <div class="carousel-track" id="ct1">
+            <img src="assets/images/ig-carrusel-1.jpg" alt="Slide 1"/>
+            <img src="assets/images/ig-carrusel-2.jpg" alt="Slide 2"/>
+            <img src="assets/images/ig-carrusel-3.jpg" alt="Slide 3"/>
+            <img src="assets/images/ig-carrusel-4.jpg" alt="Slide 4"/>
+            <img src="assets/images/ig-carrusel-5.jpg" alt="Slide 5"/>
+          </div>
+          <button class="carousel-btn prev" onclick="moveCarousel('car1','ct1','d1',-1)">‹</button>
+          <button class="carousel-btn next" onclick="moveCarousel('car1','ct1','d1',1)">›</button>
+        </div>
+        <div class="carousel-dots" id="d1">
+          <div class="cdot active" onclick="goToSlide('ct1','d1',0)"></div>
+          <div class="cdot" onclick="goToSlide('ct1','d1',1)"></div>
+          <div class="cdot" onclick="goToSlide('ct1','d1',2)"></div>
+          <div class="cdot" onclick="goToSlide('ct1','d1',3)"></div>
+          <div class="cdot" onclick="goToSlide('ct1','d1',4)"></div>
+        </div>
+      </div>
+
+      <div class="fade" style="display:flex;flex-direction:column;gap:14px">
+        <span class="label">Post 2 · Reel + Pieza inorgánica</span>
+
+        <div class="ig-post">
+          <video src="assets/video/ig-reel.mp4" autoplay muted loop playsinline></video>
+          <div class="ig-meta">
+            <div class="ig-av">SS</div>
+            <div><div class="ig-handle">sseja.ar</div><div class="ig-sub">Post 2 · Reel 20s</div></div>
+            <span class="ibadge borg">Orgánico</span>
+          </div>
+        </div>
+
+        <div class="ig-post">
+          <video src="assets/video/ig-inorganica.mp4" autoplay muted loop playsinline></video>
+          <div class="ig-meta">
+            <div class="ig-av">SS</div>
+            <div><div class="ig-handle">sseja.ar</div><div class="ig-sub">Pieza inorgánica · Video Ads</div></div>
+            <span class="ibadge binorg">Pautado</span>
+          </div>
+        </div>
+
+        <div class="ig-post">
+          <img src="assets/images/ig-historia.jpg" alt="Historia Instagram Valentina y Rocco"/>
+          <div class="ig-meta">
+            <div class="ig-av">SS</div>
+            <div><div class="ig-handle">sseja.ar</div><div class="ig-sub">Historia · @ValentinaRocco</div></div>
+            <span class="ibadge borg">Orgánico</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TIKTOK ═══ -->
+<section style="padding:90px 0;background:var(--bg)">
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">Plan de redes sociales · TikTok</span></div>
+    <div class="center" style="margin-top:12px">
+      <h2 class="stitle">Dinamismo, narrativa humana y tendencias.</h2>
+      <p class="ssub" style="margin:0 auto 40px">POV y tutorial. Spark Ads aplicado sobre el video de Pet Wings para amplificación hacia audiencias segmentadas por bienestar animal.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:600px;margin:0 auto" class="fade">
+      <div class="tt-phone">
+        <div class="tt-screen">
+          <video src="assets/video/tiktok1.mp4" autoplay muted loop playsinline></video>
+          <div class="tt-tag">Pieza 1 · POV</div>
+        </div>
+      </div>
+      <div class="tt-phone">
+        <div class="tt-screen">
+          <video src="assets/video/tiktok2.mp4" autoplay muted loop playsinline></video>
+          <div class="tt-tag">Pieza 2 · Tutorial</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PET WINGS ═══ -->
+<section id="pet-wings" style="padding:90px 0;background:var(--bg2);position:relative;overflow:hidden">
+  <div style="position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(50,79,162,.1) 0%,transparent 65%);top:50%;right:-100px;transform:translateY(-50%);pointer-events:none"></div>
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">Gamificación urbana · Pet Wings</span></div>
+    <div class="g2" style="margin-top:40px">
+      <div class="fade" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <img src="assets/images/petwings-1.jpg" alt="Chica escaneando huella QR Buenos Aires" style="grid-column:1/-1;width:100%;border-radius:14px;border:1px solid rgba(50,79,162,.18);aspect-ratio:16/9;object-fit:cover"/>
+        <img src="assets/images/petwings-2.jpg" alt="Pantalla gigante Pet Wings AR" style="width:100%;border-radius:12px;border:1px solid rgba(50,79,162,.18);aspect-ratio:16/9;object-fit:cover"/>
+        <div class="vwrap" style="aspect-ratio:16/9">
+          <video src="assets/video/video7.mp4" autoplay muted loop playsinline style="height:100%;object-fit:cover"></video>
+        </div>
+      </div>
+      <div class="fade">
+        <span class="label">PET WINGS</span>
+        <h2 class="stitle">La experiencia que toma las calles.</h2>
+        <p style="color:var(--txm);font-size:15px;margin-bottom:20px">Activación de realidad urbana: los participantes recorren CABA buscando pegatinas con forma de huella. Cada QR activa una experiencia colectiva única en tiempo real.</p>
+        <ul style="list-style:none;margin:0 0 28px">
+          <li style="display:flex;gap:12px;margin-bottom:14px;font-size:14px;color:var(--txm)"><div style="width:24px;height:24px;border-radius:50%;background:rgba(50,79,162,.15);border:1px solid rgba(50,79,162,.4);color:var(--ac);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">1</div><span><strong style="color:#fff">Escaneá la huella</strong> — pegatinas QR en plazas y espacios públicos de CABA.</span></li>
+          <li style="display:flex;gap:12px;margin-bottom:14px;font-size:14px;color:var(--txm)"><div style="width:24px;height:24px;border-radius:50%;background:rgba(50,79,162,.15);border:1px solid rgba(50,79,162,.4);color:var(--ac);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">2</div><span><strong style="color:#fff">Validá tu ubicación</strong> — con 20 usuarios activos se activa el modo grupal AR.</span></li>
+          <li style="display:flex;gap:12px;margin-bottom:14px;font-size:14px;color:var(--txm)"><div style="width:24px;height:24px;border-radius:50%;background:rgba(50,79,162,.15);border:1px solid rgba(50,79,162,.4);color:var(--ac);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">3</div><span><strong style="color:#fff">Jugá el laberinto AR</strong> — 5 desafíos. Tu mascota avanza en la pantalla gigante.</span></li>
+          <li style="display:flex;gap:12px;font-size:14px;color:var(--txm)"><div style="width:24px;height:24px;border-radius:50%;background:rgba(50,79,162,.15);border:1px solid rgba(50,79,162,.4);color:var(--ac);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px">4</div><span><strong style="color:#fff">Ganá premios reales</strong> — suscripción premium + llavero metálico exclusivo SSEJA.</span></li>
+        </ul>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px">
+          <span style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--ac);background:rgba(50,79,162,.1);border:1px solid rgba(50,79,162,.22);padding:4px 12px;border-radius:100px">#SSEJA</span>
+          <span style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--ac);background:rgba(50,79,162,.1);border:1px solid rgba(50,79,162,.22);padding:4px 12px;border-radius:100px">#PetWings</span>
+          <span style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;color:var(--ac);background:rgba(50,79,162,.1);border:1px solid rgba(50,79,162,.22);padding:4px 12px;border-radius:100px">#HuellasEnElCorazón</span>
+        </div>
+        <a href="#" class="btn btn-p">Seguinos en Instagram →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CAP 3: NAVEGA LA PLATAFORMA ═══ -->
+<section style="padding:80px 0;background:var(--bg)">
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">La historia de Valentina · Capítulo 3</span></div>
+    <div class="scard fade" style="margin-top:40px">
+      <div class="smedia rev">
+        <img class="simg" src="assets/images/ig-carrusel-4.jpg" alt="Posteos efímeros vs memorial permanente"/>
+        <div class="stxt">
+          <p class="sch">Valentina entra a SSEJA por primera vez</p>
+          <h3 class="sh3">La pregunta que la detiene: ¿posteos efímeros o un memorial permanente?</h3>
+          <p class="sbody">Ve cómo sus fotos de Simón se pierden en el feed. Nadie las ve. Nadie las recuerda.<br><br>SSEJA le propone algo diferente: <strong>un espacio donde la memoria no desaparece.</strong><br><br>Se registra gratis. Empieza a subir fotos. Elige el Plan Recuerdo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CÓMO FUNCIONA ═══ -->
+<section style="padding:90px 0;background:var(--bg2)">
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">El producto</span></div>
+    <div class="center" style="margin-top:12px">
+      <h2 class="stitle">¿Cómo funciona SSEJA?</h2>
+      <p class="ssub" style="margin:0 auto 40px">En cuatro pasos, un espacio permanente, personalizado y listo para compartir.</p>
+    </div>
+    <div class="steps fade">
+      <div class="step"><div class="snum">01</div><h3>Registrate gratis</h3><p>Cuenta en segundos. Sin tarjeta requerida para comenzar.</p></div>
+      <div class="step"><div class="snum">02</div><h3>Completá el perfil</h3><p>Fotos, videos, fechas importantes e historias de vida.</p></div>
+      <div class="step"><div class="snum">03</div><h3>Activá el avatar IA</h3><p>IA genera un avatar animado único desde fotos reales.</p></div>
+      <div class="step"><div class="snum">04</div><h3>Compartí y recordá</h3><p>Invitá familia y amigos. Visitá el memorial cuando quieras.</p></div>
+    </div>
+    <!-- Product screenshots -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px" class="fade">
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(50,79,162,.15)"><img src="assets/images/producto-1.jpg" alt="App SSEJA mobile" style="width:100%;display:block"/></div>
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(50,79,162,.15)"><img src="assets/images/producto-2.jpg" alt="App SSEJA cementerio" style="width:100%;display:block"/></div>
+      <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(50,79,162,.15)"><img src="assets/images/producto-3.jpg" alt="App SSEJA testimonios" style="width:100%;display:block"/></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CAP 4: ELIGE SU PLAN ═══ -->
+<section id="precios" style="padding:90px 0;background:var(--bg)">
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">La historia de Valentina · Capítulo 4</span></div>
+    <div class="scard fade" style="margin-top:40px;margin-bottom:48px">
+      <div class="smedia">
+        <img class="simg" src="assets/images/ig-carrusel-3.jpg" alt="El proceso IA SSEJA"/>
+        <div class="stxt">
+          <p class="sch">Meses después · Valentina actualiza su plan</p>
+          <h3 class="sh3">Ve el avatar de Simón moverse por primera vez. Y llora de alivio.</h3>
+          <p class="sbody">Empezó con el Plan Recuerdo. Pero cuando vio que podía tener un avatar 2D animado de Simón generado desde sus fotos, no lo dudó. <strong>Subió al Plan Memorial.</strong><br><br>La IA tomó sus fotos. Transformó la esencia. Le devolvió algo que pensaba haber perdido para siempre.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="center"><span class="label" style="display:inline-block">Planes y precios</span>
+    <h2 class="stitle">Elegí el homenaje que merece.</h2>
+    <p class="ssub" style="margin:0 auto 40px">Sin fecha de vencimiento. El recuerdo permanece.</p></div>
+
+    <div class="plans fade">
+      <div class="plan">
+        <p class="pname">Recuerdo</p>
+        <div class="pprice">$9.99<span>/mes</span></div>
+        <p class="pdesc">Para empezar a honrar su memoria.</p>
+        <div class="pdiv"></div>
+        <ul class="pfeats">
+          <li>Perfil conmemorativo con foto</li>
+          <li>Galería hasta 30 fotos</li>
+          <li>Historia de vida en texto libre</li>
+          <li>Acceso público o privado</li>
+          <li>Sin fecha de expiración</li>
+        </ul>
+        <a href="https://sseja.vercel.app" class="btn btn-g">Empezar con Recuerdo</a>
+      </div>
+      <div class="plan ft">
+        <div class="pbadge">⭐ Más elegido</div>
+        <p class="pname">Memorial</p>
+        <div class="pprice">$19.99<span>/mes</span></div>
+        <p class="pdesc">La opción más completa.</p>
+        <div class="pdiv"></div>
+        <ul class="pfeats">
+          <li>Todo lo del Plan Recuerdo</li>
+          <li>Avatar 2D animado por IA</li>
+          <li>Galería ilimitada (5 GB)</li>
+          <li>Música personalizable</li>
+          <li>Mensajes de condolencia</li>
+          <li>Árbol familiar de mascotas</li>
+          <li>Acceso prioritario a funciones</li>
+        </ul>
+        <a href="https://sseja.vercel.app" class="btn btn-p">Empezar con Memorial</a>
+      </div>
+      <div class="plan">
+        <p class="pname">Legado</p>
+        <div class="pprice">$39.99<span>/mes</span></div>
+        <p class="pdesc">El homenaje más completo.</p>
+        <div class="pdiv"></div>
+        <ul class="pfeats">
+          <li>Todo lo del Plan Memorial</li>
+          <li>Avatar 3D fotorrealista</li>
+          <li>Video memorial automático</li>
+          <li>Cementerio Mundial SSEJA</li>
+          <li>Packaging físico premium</li>
+          <li>Sesión con especialista en duelo</li>
+          <li>Badge y página destacada</li>
+        </ul>
+        <a href="https://sseja.vercel.app" class="btn btn-g">Empezar con Legado</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:13px;color:var(--txd)">¿Querés probar? <a href="https://sseja.vercel.app" style="color:var(--ac);text-decoration:none;font-weight:600">Comenzá gratis</a> con funciones limitadas.</p>
+  </div>
+</section>
+
+<!-- ═══ CAP 5: PACKAGING ═══ -->
+<section id="packaging" style="padding:90px 0;background:var(--bg2)">
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">La historia de Valentina · Capítulo 5</span></div>
+    <div class="scard fade" style="margin-top:40px;margin-bottom:48px">
+      <div class="smedia rev">
+        <img class="simg" src="assets/images/ig-historia.jpg" alt="Historia Valentina y Rocco — Un legado de amor eterno"/>
+        <div class="stxt">
+          <p class="sch">El Plan Legado llega a casa</p>
+          <h3 class="sh3">"Un legado de amor eterno."</h3>
+          <p class="sbody">Valentina abre la caja negra. Encuentra la membresía con QR, el llavero metálico y la guía de duelo. Escanea el código. Accede a su memorial mejorado.<br><br><strong>"Le creé un lugar a Rocco. Un rincón para siempre. Y al hacerlo, me di cuenta de que no era solo para él; también era para mí."</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="fade">
+        <div class="packgal">
+          <img src="assets/images/pack-caja.jpg" alt="Caja negra mate premium SSEJA"/>
+          <img src="assets/images/pack-tarjeta.jpg" alt="Membresía QR SSEJA"/>
+          <img src="assets/images/pack-llavero.jpg" alt="Llavero metálico SSEJA"/>
+          <img src="assets/images/pack-guia.jpg" alt="Guía de uso premium SSEJA"/>
+        </div>
+      </div>
+      <div class="fade">
+        <span class="label">Solo Plan Legado</span>
+        <h2 class="stitle">Un homenaje que también podés tocar.</h2>
+        <p style="color:var(--txm);font-size:15px;margin-bottom:22px">Al elegir el Plan Legado, recibís en tu domicilio un packaging corporativo premium diseñado para materializar lo digital.</p>
+        <ul class="pklist">
+          <li><div class="pkck">✓</div><span><strong style="color:#fff">Caja rígida negra mate</strong> con isotipo en Hot Stamping azul cobalto y terminación soft-touch.</span></li>
+          <li><div class="pkck">✓</div><span><strong style="color:#fff">Membresía plástica con QR</strong> único de alta resolución para activación inmediata.</span></li>
+          <li><div class="pkck">✓</div><span><strong style="color:#fff">Guía de uso premium</strong> impresa en papel texturado con enfoque psicológico sobre el duelo animal.</span></li>
+          <li><div class="pkck">✓</div><span><strong style="color:#fff">Llavero metálico exclusivo</strong> con el isotipo SSEJA tallado en relieve. Ancla física del recuerdo.</span></li>
+        </ul>
+        <a href="https://sseja.vercel.app" class="btn btn-p">Quiero el Plan Legado →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CAP 6: CIERRE TESTIMONIO ═══ -->
+<section style="padding:90px 0;background:var(--bg);text-align:center">
+  <div class="wrap">
+    <div class="chapter"><span class="chnum">La historia de Valentina · Capítulo 6</span></div>
+    <p style="color:var(--txm);max-width:520px;margin:10px auto 40px;font-size:15px">Meses después, Valentina comparte su experiencia. SSEJA la convierte en pieza pautada y el círculo se cierra.</p>
+
+    <div style="max-width:420px;margin:0 auto 40px" class="fade">
+      <div class="vwrap">
+        <video src="assets/video/ig-post3.mp4" controls muted playsinline></video>
+      </div>
+      <p class="vlabel">📸 Post 3 · Testimonio real · Instagram</p>
+    </div>
+
+    <div class="closing-quote fade">
+      <div class="stars">★★★★★</div>
+      <p class="bq">Le creé un lugar a Rocco. Un rincón para siempre. Y al hacerlo, me di cuenta de que no era solo para él; también era para mí. Un espacio de paz, de recuerdo y amor incondicional, donde su luz sigue brillando.</p>
+      <div class="bqauth">
+        <div class="bqav">VM</div>
+        <div class="bqinfo"><strong>Valentina M.</strong><span>Buenos Aires · Plan Memorial · SSEJA</span></div>
+      </div>
+    </div>
+
+    <div style="margin-top:56px" class="fade">
+      <h2 class="stitle">¿Listo para crear el tuyo?</h2>
+      <p style="color:var(--txm);margin-bottom:24px;font-size:16px">El recuerdo de tu compañero merece un lugar permanente.</p>
+      <a href="https://sseja.vercel.app" class="btn btn-p" style="font-size:15px;padding:15px 32px">Crear memorial gratis →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="fgrid">
+    <div>
+      <a href="#hero" class="flogo">SSEJA</a>
+      <p class="fslogan">"El lugar donde tu mascota vive para siempre."</p>
+      <div class="socials">
+        <a href="#" class="soc" aria-label="Instagram">📸</a>
+        <a href="#" class="soc" aria-label="TikTok">🎵</a>
+      </div>
+    </div>
+    <div class="fcol">
+      <h4>Proyecto</h4>
+      <ul>
+        <li><a href="#identidad">Identidad de marca</a></li>
+        <li><a href="#atl">Campaña ATL</a></li>
+        <li><a href="#social">Redes sociales</a></li>
+        <li><a href="#pet-wings">Pet Wings</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>Producto</h4>
+      <ul>
+        <li><a href="#precios">Planes y precios</a></li>
+        <li><a href="#packaging">Packaging Legado</a></li>
+        <li><a href="https://sseja.vercel.app">E-commerce</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>TP · UCES 2025</h4>
+      <ul>
+        <li><a href="#">Marketing Digital</a></li>
+        <li><a href="#">Docente: Pablo Ozu</a></li>
+        <li><a href="#">Agencia SSEJA</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fbot">
+    <p>© 2025 SSEJA — Trabajo Práctico UCES · Marketing Digital</p>
+    <div style="display:flex;gap:16px"><a href="#">Privacidad</a><a href="#">Términos</a></div>
+  </div>
+</footer>
+
+<script>
+// NAV
+const hbg=document.getElementById('hbg'),mob=document.getElementById('mob');
+hbg.addEventListener('click',()=>mob.classList.toggle('open'));
+mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mob.classList.remove('open')));
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').style.background=window.scrollY>60?'rgba(15,15,15,.98)':'rgba(15,15,15,.92)';
+});
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+
+// FADE IN
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*60);}});
+},{threshold:.08});
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+
+// CAROUSEL
+const carPos={};
+function moveCarousel(carId,trackId,dotsId,dir){
+  const track=document.getElementById(trackId);
+  const dots=document.getElementById(dotsId);
+  const total=track.children.length;
+  carPos[trackId]=(carPos[trackId]||0)+dir;
+  if(carPos[trackId]<0)carPos[trackId]=total-1;
+  if(carPos[trackId]>=total)carPos[trackId]=0;
+  track.style.transform=`translateX(-${carPos[trackId]*100}%)`;
+  dots.querySelectorAll('.cdot').forEach((d,i)=>d.classList.toggle('active',i===carPos[trackId]));
+}
+function goToSlide(trackId,dotsId,idx){
+  const track=document.getElementById(trackId);
+  const dots=document.getElementById(dotsId);
+  carPos[trackId]=idx;
+  track.style.transform=`translateX(-${idx*100}%)`;
+  dots.querySelectorAll('.cdot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+}
+
+// AUDIO
+const jingle=document.getElementById('jingle');
+let playing=false;
+function toggleAudio(){
+  if(!jingle.src||jingle.networkState===3){
+    document.getElementById('asmall').textContent='Agregá jingle.mp3 a assets/audio/';
+    return;
+  }
+  if(playing){
+    jingle.pause();playing=false;
+    document.getElementById('aicon').textContent='▶';
+    document.getElementById('abars').classList.remove('playing');
+    document.getElementById('asmall').textContent='Tocá para escuchar';
+  }else{
+    jingle.play().then(()=>{
+      playing=true;
+      document.getElementById('aicon').textContent='⏸';
+      document.getElementById('abars').classList.add('playing');
+      document.getElementById('asmall').textContent='Reproduciendo...';
+    }).catch(()=>{document.getElementById('asmall').textContent='No se pudo reproducir';});
+  }
+}
+</script>
+</body>
+</html>
