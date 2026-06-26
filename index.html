@@ -186,9 +186,9 @@ body:hover .cursor{opacity:1}
 .piece-card{background:var(--bgc);border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07);transition:transform var(--tr),border-color var(--tr)}
 .piece-card:hover{transform:translateY(-4px);border-color:rgba(50,79,162,.4)}
 .piece-media{position:relative}
-.piece-media{height:280px;overflow:hidden}
-.piece-media img{width:100%;height:100%;object-fit:cover;display:block}
-.piece-media video{width:100%;height:100%;object-fit:cover;display:block}
+.piece-media{overflow:hidden;border-radius:10px 10px 0 0}
+.piece-media img{width:100%;display:block;aspect-ratio:9/16;object-fit:contain;background:#0a0a0a}
+.piece-media video{width:100%;display:block;aspect-ratio:9/16;object-fit:contain;background:#000}
 .piece-badge{position:absolute;top:10px;left:10px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px}
 .pb-org{background:rgba(50,79,162,.85);color:#fff}
 .pb-inorg{background:rgba(130,80,200,.85);color:#fff}
@@ -649,9 +649,9 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
           <div class="piece-media" style="position:relative">
             <!-- Tab mini dentro de la card para mostrar las 3 sub-piezas -->
             <div id="p3-content" style="position:relative">
-              <img id="p3-img" src="assets/images/ig-post3-rocco.jpg" alt="Post estático — Su lugar está aquí" style="width:100%;display:block;aspect-ratio:9/16;object-fit:cover;max-height:260px"/>
+              <img id="p3-img" src="assets/images/ig-post3-rocco.jpg" alt="Post estático — Su lugar está aquí" style="width:100%;display:block;aspect-ratio:9/16;object-fit:contain;background:#0a0a0a"/>
               <video id="p3-vid" src="assets/video/ig-post3-video.mp4" muted loop playsinline style="width:100%;display:none;aspect-ratio:9/16;object-fit:cover;max-height:260px"></video>
-              <img id="p3-sto" src="assets/images/ig-historia.jpg" alt="Historia — Un legado de amor eterno" style="width:100%;display:none;aspect-ratio:9/16;object-fit:cover;max-height:260px"/>
+              <img id="p3-sto" src="assets/images/ig-historia.jpg" alt="Historia — Un legado de amor eterno" style="width:100%;display:none;aspect-ratio:9/16;object-fit:contain;background:#0a0a0a"/>
             </div>
             <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:6px;z-index:3">
               <button onclick="switchP3('img')" id="p3b-img" style="font-family:Montserrat,sans-serif;font-size:9px;font-weight:700;padding:3px 9px;border-radius:100px;border:none;cursor:pointer;background:var(--ac);color:#fff">Post</button>
