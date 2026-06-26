@@ -186,8 +186,9 @@ body:hover .cursor{opacity:1}
 .piece-card{background:var(--bgc);border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.07);transition:transform var(--tr),border-color var(--tr)}
 .piece-card:hover{transform:translateY(-4px);border-color:rgba(50,79,162,.4)}
 .piece-media{position:relative}
-.piece-media img{width:100%;display:block;aspect-ratio:9/16;object-fit:cover}
-.piece-media video{width:100%;display:block;aspect-ratio:9/16;object-fit:cover;max-height:260px}
+.piece-media{height:280px;overflow:hidden}
+.piece-media img{width:100%;height:100%;object-fit:cover;display:block}
+.piece-media video{width:100%;height:100%;object-fit:cover;display:block}
 .piece-badge{position:absolute;top:10px;left:10px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:100px}
 .pb-org{background:rgba(50,79,162,.85);color:#fff}
 .pb-inorg{background:rgba(130,80,200,.85);color:#fff}
@@ -377,26 +378,27 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
 <section id="problema" style="padding:100px 0;background:var(--bg)">
   <div class="wrap">
     <div class="sec-div" style="padding:0 0 48px"><span class="sec-num">01 · El problema</span></div>
-    <div class="prob-grid">
-      <div class="fade">
-        <h2 class="prob-headline">Argentina no tiene un lugar para <span class="highlight">recordar</span> a sus mascotas.</h2>
-        <p style="color:var(--txm);font-size:16px;margin-top:20px;line-height:1.7">Las redes sociales son efímeras. Los posts se pierden en el feed. Los recuerdos merecen un espacio permanente, propio y significativo. <strong style="color:#fff">SSEJA llega para cambiar eso.</strong></p>
-      </div>
-      <div class="stat-card fade">
+    <!-- Asymmetric: big stat left offset, text right -->
+    <div style="display:grid;grid-template-columns:2fr 3fr;gap:40px;align-items:center" class="fade">
+      <div class="stat-card" style="position:relative;overflow:visible">
+        <div style="position:absolute;top:-20px;left:-20px;font-family:'Montserrat',sans-serif;font-size:120px;font-weight:900;color:rgba(50,79,162,.08);line-height:1;pointer-events:none;user-select:none">66</div>
         <div class="stat-num">66<sup>%</sup></div>
         <p class="stat-desc">de los hogares argentinos<br>tiene al menos una mascota</p>
-        <div style="margin-top:20px;padding-top:20px;border-top:1px solid rgba(255,255,255,.07)">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-            <div style="text-align:left">
-              <div style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:var(--acl)">+20M</div>
-              <div style="font-size:12px;color:var(--txm);margin-top:2px">mascotas en Argentina</div>
-            </div>
-            <div style="text-align:left">
-              <div style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:var(--acl)">0</div>
-              <div style="font-size:12px;color:var(--txm);margin-top:2px">plataformas locales de memorial</div>
-            </div>
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.07);display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:12px;color:var(--txm)">Mascotas en AR</span>
+            <span style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:var(--acl)">+20M</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:12px;color:var(--txm)">Plataformas locales</span>
+            <span style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:var(--acl)">0</span>
           </div>
         </div>
+      </div>
+      <div style="padding-left:20px">
+        <h2 style="font-size:clamp(30px,5vw,58px);font-weight:900;line-height:1.1;margin-bottom:24px">Argentina no tiene un lugar para <span style="color:var(--acl);font-style:italic;font-family:'Ovo',serif;font-weight:400">recordar</span> a sus mascotas.</h2>
+        <p style="color:var(--txm);font-size:16px;line-height:1.75;margin-bottom:24px">Las redes sociales son efímeras. Los posts se pierden en el feed. Las cuentas desaparecen. Los recuerdos merecen un espacio permanente, propio y significativo.</p>
+        <p style="color:#fff;font-size:16px;font-weight:700;font-family:'Montserrat',sans-serif;border-left:3px solid var(--ac);padding-left:16px;line-height:1.5">SSEJA es el primer cementerio y memorial virtual de mascotas de Argentina.</p>
       </div>
     </div>
   </div>
@@ -429,11 +431,7 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
             <div class="typo-sample-o">Huellas en el corazón.</div>
           </div>
         </div>
-        <div class="concepto-box">
-          <div class="concepto-label">Concepto de campaña</div>
-          <div class="concepto-txt">"Huellas en el corazón"</div>
-          <div class="concepto-desc">La marca no habla de muerte, sino de permanencia. No de tristeza, sino de amor activo.</div>
-        </div>
+
       </div>
       <div class="fade">
         <span class="label" style="margin-bottom:20px;display:block">Los valores que nos representan</span>
@@ -441,6 +439,11 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
           <div class="val"><div class="val-icon">🤍</div><div><h4>Empatía</h4><p>Acompañar el duelo con sensibilidad y cuidado estético</p></div></div>
           <div class="val"><div class="val-icon">✨</div><div><h4>Memoria</h4><p>Homenajes digitales permanentes que perduran en el tiempo</p></div></div>
           <div class="val"><div class="val-icon">🎨</div><div><h4>Personalización</h4><p>Identidad única y narrativa propia para cada mascota</p></div></div>
+        </div>
+        <div class="concepto-box" style="margin-top:20px;max-width:80%">
+          <div class="concepto-label">Concepto de campaña</div>
+          <div class="concepto-txt">"Huellas en el corazón"</div>
+          <div class="concepto-desc">La marca no habla de muerte, sino de permanencia. No de tristeza, sino de amor activo.</div>
         </div>
       </div>
     </div>
@@ -451,7 +454,7 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
 <section id="canvas" style="padding:100px 0;background:var(--bg)">
   <div class="wrap">
     <div class="sec-div" style="padding:0 0 48px"><span class="sec-num">03 · Value Proposition Canvas</span></div>
-    <div class="canvas-grid fade">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:44px" class="fade">
       <div class="canvas-card cliente">
         <div class="canvas-header">
           <span class="canvas-icon">👤</span>
@@ -488,7 +491,7 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
           <p>Plan Freemium sin fricción. Privacidad configurable. IA como recurso simbólico, no reemplazo.</p>
         </div>
       </div>
-      <div class="encaje-box">
+      <div class="encaje-box" style="grid-column:1/-1">
         <div class="label" style="display:block;text-align:center;margin-bottom:10px">Encaje de valor</div>
         <p>SSEJA transforma la memoria de una mascota en un <strong>homenaje permanente, personalizado y emocionalmente significativo</strong> — compatible con las nuevas formas de consumo digital.</p>
       </div>
@@ -521,9 +524,9 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
           </div>
         </div>
       </div>
-      <div class="fade" style="display:flex;flex-direction:column;gap:14px">
-        <div class="atl-img"><img src="assets/images/atl-exterior.jpg" alt="Billboard SSEJA noche CABA"/></div>
-        <div class="atl-img"><img src="assets/images/atl-subte-1.jpg" alt="Subte Plaza de Mayo Línea A · sseja.vercel.app"/></div>
+      <div class="fade" style="display:flex;flex-direction:column;gap:12px">
+        <div class="atl-img"><img src="assets/images/atl-exterior.jpg" alt="Billboard SSEJA noche CABA" style="width:100%;display:block;aspect-ratio:16/8;object-fit:cover"/></div>
+        <div class="atl-img"><img src="assets/images/atl-subte-1.jpg" alt="Subte Plaza de Mayo Línea A" style="width:100%;display:block;aspect-ratio:16/8;object-fit:cover"/></div>
       </div>
     </div>
   </div>
@@ -573,15 +576,15 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
             <div class="gads-desc">Creá un espacio permanente con <strong>avatares de IA</strong>, fotos y rituales interactivos. Cuidamos el recuerdo de tu compañero. <strong>Registrate gratis hoy.</strong></div>
           </div>
         </div>
-        <div style="margin-top:20px;border-radius:10px;overflow:hidden;border:1px solid rgba(50,79,162,.15)">
-          <img src="assets/images/google-ads.jpg" alt="Captura real del anuncio Google Ads SSEJA" style="width:100%;display:block"/>
-        </div>
         <div class="gads-meta">
           <div class="gads-m"><div class="gads-m-val">&lt;$8</div><div class="gads-m-lbl">CAC objetivo USD</div></div>
           <div class="gads-m"><div class="gads-m-val">Search</div><div class="gads-m-lbl">Red de búsqueda</div></div>
           <div class="gads-m"><div class="gads-m-val">AR</div><div class="gads-m-lbl">Segmentación</div></div>
         </div>
       </div>
+    </div>
+    <div class="fade" style="margin-top:32px;border-radius:16px;overflow:hidden;border:1px solid rgba(50,79,162,.15)">
+      <img src="assets/images/google-ads.jpg" alt="Vista previa Google Ads SSEJA" style="width:100%;display:block"/>
     </div>
   </div>
 </section>
@@ -632,7 +635,7 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
         <!-- Orgánica 2: Reel -->
         <div class="piece-card fade">
           <div class="piece-media" style="position:relative">
-            <video src="assets/video/ig-reel.mp4" autoplay muted loop playsinline style="width:100%;display:block;aspect-ratio:9/16;object-fit:cover;max-height:260px"></video>
+            <video src="assets/video/ig-reel.mp4" autoplay muted loop playsinline ></video>
             <span class="piece-badge pb-org">Orgánica 2</span>
           </div>
           <div class="piece-info">
@@ -666,7 +669,7 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
         <!-- Inorgánica: Video Ads horizontal -->
         <div class="piece-card fade">
           <div class="piece-media" style="position:relative">
-            <video src="assets/video/ig-inorganica.mp4" autoplay muted loop playsinline style="width:100%;display:block;aspect-ratio:16/9;object-fit:cover"></video>
+            <video src="assets/video/ig-inorganica.mp4" autoplay muted loop playsinline ></video>
             <span class="piece-badge pb-inorg">Inorgánica</span>
           </div>
           <div class="piece-info">
@@ -685,7 +688,7 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
         <!-- Orgánica 1: POV -->
         <div class="piece-card fade">
           <div class="piece-media" style="position:relative">
-            <video src="assets/video/tiktok1.mp4" autoplay muted loop playsinline style="width:100%;display:block;aspect-ratio:9/16;object-fit:cover;max-height:260px"></video>
+            <video src="assets/video/tiktok1.mp4" autoplay muted loop playsinline ></video>
             <span class="piece-badge pb-org">Orgánica 1</span>
           </div>
           <div class="piece-info">
@@ -697,7 +700,7 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
         <!-- Orgánica 2: Tutorial -->
         <div class="piece-card fade">
           <div class="piece-media" style="position:relative">
-            <video src="assets/video/tiktok2.mp4" autoplay muted loop playsinline style="width:100%;display:block;aspect-ratio:9/16;object-fit:cover;max-height:260px"></video>
+            <video src="assets/video/tiktok2.mp4" autoplay muted loop playsinline ></video>
             <span class="piece-badge pb-org">Orgánica 2</span>
           </div>
           <div class="piece-info">
@@ -709,7 +712,7 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
         <!-- Orgánica 3: Pet Wings -->
         <div class="piece-card fade">
           <div class="piece-media" style="position:relative">
-            <video src="assets/video/tiktok3.mp4" autoplay muted loop playsinline style="width:100%;display:block;aspect-ratio:9/16;object-fit:cover;max-height:260px"></video>
+            <video src="assets/video/tiktok3.mp4" autoplay muted loop playsinline ></video>
             <span class="piece-badge pb-org">Orgánica 3</span>
           </div>
           <div class="piece-info">
@@ -721,7 +724,7 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
         <!-- Inorgánica: Spark Ads -->
         <div class="piece-card fade">
           <div class="piece-media" style="position:relative">
-            <video src="assets/video/tiktok4.mp4" autoplay muted loop playsinline style="width:100%;display:block;aspect-ratio:9/16;object-fit:cover;max-height:260px"></video>
+            <video src="assets/video/tiktok4.mp4" autoplay muted loop playsinline ></video>
             <span class="piece-badge pb-inorg">Inorgánica</span>
           </div>
           <div class="piece-info">
@@ -742,14 +745,12 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
     <div class="sec-div" style="padding:0 0 48px"><span class="sec-num">07 · Gamificación BTL · Pet Wings</span></div>
     <div class="pw-grid">
       <div class="fade">
-        <div class="pw-imgs">
-          <img src="assets/images/petwings-3.jpg" alt="Pet Wings — activación en plaza pública" style="grid-column:1/-1;aspect-ratio:16/9;object-fit:cover"/>
-          <img src="assets/images/petwings-1.jpg" alt="Chica escaneando huella QR en CABA" style="aspect-ratio:1"/>
-          <img src="assets/images/petwings-2.jpg" alt="Pantalla gigante laberinto AR" style="aspect-ratio:1"/>
+        <div style="display:grid;grid-template-columns:5fr 3fr;grid-template-rows:auto auto;gap:12px">
+          <img src="assets/images/petwings-3.jpg" alt="Pet Wings activación plaza pública" style="grid-row:1/3;width:100%;border-radius:14px;border:1px solid rgba(50,79,162,.18);object-fit:cover;height:100%"/>
+          <img src="assets/images/petwings-1.jpg" alt="Chica escaneando huella QR" style="width:100%;border-radius:14px;border:1px solid rgba(50,79,162,.18);object-fit:cover;aspect-ratio:4/3"/>
+          <img src="assets/images/petwings-2.jpg" alt="Pantalla gigante laberinto AR" style="width:100%;border-radius:14px;border:1px solid rgba(50,79,162,.18);object-fit:cover;aspect-ratio:4/3"/>
         </div>
-        <div style="margin-top:12px;border-radius:12px;overflow:hidden;border:1px solid rgba(50,79,162,.18)">
-          <video src="assets/video/realidad-aumentada.mp4" autoplay muted loop playsinline style="width:100%;display:block;max-height:200px;object-fit:cover"></video>
-        </div>
+
       </div>
       <div class="fade">
         <span class="label">PET WINGS</span>
@@ -782,9 +783,6 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
     <div class="center fade">
       <h2 class="stitle">Elegí el homenaje que merece.</h2>
       <p class="ssub" style="max-width:500px;margin:8px auto 0">Sin fecha de vencimiento. El recuerdo permanece para siempre.</p>
-    </div>
-    <div class="fade" style="margin-bottom:32px;border-radius:16px;overflow:hidden;border:1px solid rgba(50,79,162,.15)">
-      <img src="assets/images/packs-digitales.jpg" alt="Los 4 planes SSEJA en laptop" style="width:100%;display:block"/>
     </div>
     <div class="plans fade">
       <!-- Freemium -->
@@ -903,23 +901,24 @@ footer{background:var(--bgc);border-top:1px solid rgba(50,79,162,.15);padding:52
 <section id="metricas" style="padding:100px 0;background:var(--bg2)">
   <div class="wrap">
     <div class="sec-div" style="padding:0 0 48px"><span class="sec-num">10 · Objetivos SMART</span></div>
-    <h2 class="metrics-title fade">Lo que <span class="hl">medimos.</span></h2>
-    <div class="metrics-grid fade">
-      <div class="metric-card">
-        <div class="metric-val">5K</div>
-        <div class="metric-lbl">usuarios activos registrados</div>
+    <div style="display:grid;grid-template-columns:1fr 2fr;gap:60px;align-items:center" class="fade">
+      <div>
+        <h2 style="font-size:clamp(28px,4vw,56px);font-weight:900;line-height:1.1;color:#fff">Lo que <span style="color:var(--acl)">medimos.</span></h2>
+        <p style="color:var(--txm);font-size:14px;margin-top:20px;line-height:1.6">Metas SMART agresivas pero alcanzables para los primeros 6 meses de campaña.</p>
       </div>
-      <div class="metric-card">
-        <div class="metric-val">500K</div>
-        <div class="metric-lbl">impresiones en redes · 6 meses</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-val">100K</div>
-        <div class="metric-lbl">reproducciones del video BTL</div>
-      </div>
-      <div class="metric-card">
-        <div class="metric-val">6</div>
-        <div class="metric-lbl">meses de campaña</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="metric-card" style="grid-column:1/3">
+          <div class="metric-val" style="font-size:clamp(48px,7vw,80px)">5K</div>
+          <div class="metric-lbl">usuarios activos registrados</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">500K</div>
+          <div class="metric-lbl">impresiones en redes · 6 meses</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">100K</div>
+          <div class="metric-lbl">reproducciones del video BTL</div>
+        </div>
       </div>
     </div>
   </div>
